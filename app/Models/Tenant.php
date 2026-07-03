@@ -31,9 +31,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     public function url(): string
     {
-        $domain = $this->domains->first()?->domain
-            ?? ($this->id . '.' . config('tenancy.central_domains')[0]);
-
+        $subdomain = $this->domains->first()?->domain ?? $this->id;
+        $domain = $subdomain . '.' . config('tenancy.central_domains')[0];
+        
         return request()->getScheme() . '://' . $domain;
     }
 }
